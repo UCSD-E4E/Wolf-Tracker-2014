@@ -15,6 +15,4 @@ cd mjpg-streamer
 
 echo making the file
 make
-sudo make install
-
 

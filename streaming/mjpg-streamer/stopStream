@@ -1,2 +1,0 @@
-#!/bin/bash
-kill -SIGINT `pidof mjpg_streamer`
