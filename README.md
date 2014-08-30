@@ -20,7 +20,7 @@ Some of the tools used for this project were:
 The following is a description of where the individual files and folders are located on the beagle bone.
 
 | File        			   | Location      							|    
-|:------------------------ |:--------------------------------------:|
+|:------------------------ |:-------------------------------------- |
 | Website/*     		   | /usr/share/nginx/html/wolfTracker/ 	|
 | default.nginxconfig      | /etc/nginx/sites-available/default		|
 | serverWSerial.js         | /home/ubuntu/wolfBin/serverWSerial.js 	|
