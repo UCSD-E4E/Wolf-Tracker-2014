@@ -11,11 +11,12 @@ and make sure you download the [windows xbox 360 drivers](http://www.microsoft.c
 
 Some of the tools used for this project were:
 
-* Nginx - web server
-* NodeJS - Web-to-serial converter
-* Arduino - Sends motor PWM signals to motor controllers
-* mjpg-streamer - displays video from the beagle bone
-* HTML5 - grab game controller data
+* [BeagleBoneBlack](http://beagleboard.org/black) - Main Controller
+* [Nginx](http://nginx.com/) - web server
+* [NodeJS](http://nodejs.org/) - Web-to-serial converter
+* [Arduino](http://arduino.cc/) - Sends motor PWM signals to motor controllers
+* [mjpg-streamer](https://github.com/shrkey/mjpg-streamer) - displays video from the beagle bone
+* [HTML5](http://www.html5rocks.com/en/tutorials/doodles/gamepad/) - grab game controller data
 
 The following is a description of where the individual files and folders are located on the beagle bone.
 
