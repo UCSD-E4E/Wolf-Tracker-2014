@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +13,6 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-
     <title>Wolf Tracker Control Page</title>
 
     <!-- Bootstrap Core CSS -->
@@ -27,13 +24,63 @@
     <!-- Custom Fonts -->   
     <link href="font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+	<script>
+		var hasGP = false;
+		var repGP;
 
+		$(document).ready(function() {
+			function canGame(){
+				return "getGamepads" in navigator;
+			}
+
+			function sendGamepadData(){
+				var gp = navigator.getGamepads()[0];
+				//console.log(gp.axes[1] + " " + gp.axes[3]);
+
+				var sendData = JSON.stringify({leftStick: gp.axes[1], rightStick: gp.axes[3]});
+
+				//for debug
+				console.log(sendData);
+
+				$.ajax({
+					url: '/node_eats',
+					data: sendData,
+					type: 'POST',
+					dataType: 'json',
+					success: function(data){
+						//for debug
+						console.log("success!");
+					}
+				}).done(function(){
+					console.log("Done!");
+				})
+			}
+
+			if(canGame()) {
+				//Do this when gamepade is connected
+				$(window).on("gamepadconnected", function() {
+					hasGP = true;
+					console.log("gamepad connected!");
+					repGP = window.setInterval(sendGamepadData,100);
+				});
+
+				//show when gamepad disconnects
+				$(window).on("gamepaddisconnected", function() {
+					console.log("disconnection event");
+					window.clearInterval(repGP);
+				});
+
+				//setup an interval for Chrome
+				var checkGP = window.setInterval(function() {
+					console.log('checkGP');
+					if(navigator.getGamepads()[0]) {
+						if(!hasGP) $(window).trigger("gamepadconnected");
+						window.clearInterval(checkGP);
+					}
+				}, 500);
+			}		
+		});
+	</script>
 </head>
 
 <body>
@@ -59,7 +106,7 @@
                         Left bar!
                     </div>
                     <div class="col-lg-8 text-center">
-                        <img src="/?action=stream" alt="No img!" width="640" height="480">
+                        <img src="http://192.168.7.2:8080/?action=stream" width="640" height="480">
                     </div>                    
                     <div class="col-lg-2">
                         Right bar!
